@@ -106,15 +106,7 @@ export default function Skills() {
 
   return (
     <div ref={sectionRef}>
-      <div ref={pinRef} style={{ 
-        height: '100vh', 
-        display: 'flex', 
-        flexDirection: 'column', 
-        justifyContent: 'center', 
-        overflow: 'hidden', 
-        position: 'relative',
-        background: '#04020f'
-      }}>
+      <div ref={pinRef} className="skills-pin-container" style={{ position: 'relative', background: '#04020f' }}>
         {/* Decorative parallax glowing orb */}
         <div style={{
           position: 'absolute', top: '10%', left: '-10%',
@@ -123,7 +115,7 @@ export default function Skills() {
           filter: 'blur(60px)', pointerEvents: 'none'
         }} />
 
-        <div style={{ padding: '0 4vw', marginBottom: '4rem', position: 'relative', zIndex: 3 }}>
+        <div style={{ padding: '0 4vw', marginBottom: '3rem', position: 'relative', zIndex: 3 }}>
           <div className="section-label">What I Use</div>
           <h2 className="section-title">Skills &amp; Technologies</h2>
         </div>
@@ -131,18 +123,52 @@ export default function Skills() {
         {/* Horizontal Track container */}
         <div 
           ref={trackRef} 
-          style={{
-            display: 'flex', 
-            gap: '2rem', 
-            padding: '0.5rem 4vw 2rem 4vw',
-            width: 'max-content',
-            position: 'relative',
-            zIndex: 3
-          }}
+          className="skills-track"
         >
           {skills.map((skill, i) => <SkillCard key={skill.name} skill={skill} index={i} />)}
         </div>
       </div>
+
+      <style>{`
+        @media (min-width: 901px) {
+          .skills-pin-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+          }
+          .skills-track {
+            display: flex;
+            gap: 2rem;
+            padding: 0.5rem 4vw 2rem 4vw;
+            width: max-content;
+            position: relative;
+            z-index: 3;
+          }
+        }
+        @media (max-width: 900px) {
+          .skills-pin-container {
+            height: auto;
+            padding: 6rem 0 3rem 0;
+            overflow: visible;
+          }
+          .skills-track {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1rem 4vw 2rem 4vw;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            position: relative;
+            z-index: 3;
+          }
+          .skills-track::-webkit-scrollbar {
+            display: none;
+          }
+        }
+      `}</style>
     </div>
   )
 }

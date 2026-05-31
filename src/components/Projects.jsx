@@ -98,16 +98,7 @@ export default function Projects() {
 
   return (
     <div ref={sectionRef} id="projects">
-      <div ref={pinRef} style={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        background: '#04020f',
-        position: 'relative',
-        overflow: 'hidden',
-        paddingTop: '5rem'
-      }}>
+      <div ref={pinRef} className="projects-pin-container" style={{ background: '#04020f', position: 'relative' }}>
         {/* Glow highlight */}
         <div style={{
           position: 'absolute', bottom: '-20%', right: '-10%',
@@ -119,9 +110,9 @@ export default function Projects() {
         {/* Header (Visual title cards) */}
         <div style={{
           padding: '0 4vw',
-          marginBottom: '3rem',
           zIndex: 2,
-          position: 'relative'
+          position: 'relative',
+          marginBottom: '2rem'
         }}>
           <div ref={headerRef}>
             <div className="section-label">Featured Work</div>
@@ -132,15 +123,7 @@ export default function Projects() {
         {/* Horizontal Scroll Track */}
         <div 
           ref={trackRef}
-          style={{
-            display: 'flex',
-            gap: '2.5rem',
-            padding: '1rem 4vw 2rem 4vw',
-            width: 'max-content',
-            zIndex: 2,
-            position: 'relative',
-            perspective: '1500px'
-          }}
+          className="projects-track"
         >
           {projects.map((p) => (
             <div 
@@ -326,6 +309,58 @@ export default function Projects() {
         .perspective-3d-card:hover {
           border-color: rgba(236, 72, 153, 0.4) !important;
           box-shadow: 0 30px 60px rgba(236, 72, 153, 0.15) !important;
+        }
+
+        @media (min-width: 901px) {
+          .projects-pin-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            padding-top: 5rem;
+          }
+          .projects-track {
+            display: flex;
+            gap: 2.5rem;
+            padding: 1rem 4vw 2rem 4vw;
+            width: max-content;
+            z-index: 2;
+            position: relative;
+            perspective: 1500px;
+          }
+        }
+
+        @media (max-width: 900px) {
+          .projects-pin-container {
+            height: auto;
+            padding: 6rem 0 3rem 0;
+            overflow: visible;
+          }
+          .projects-track {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1rem 4vw 3rem 4vw;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+          }
+          .projects-track::-webkit-scrollbar {
+            display: none;
+          }
+          .perspective-3d-card {
+            width: 340px !important;
+            scroll-snap-align: center;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .perspective-3d-card {
+            width: 290px !important;
+          }
         }
       `}</style>
     </div>
