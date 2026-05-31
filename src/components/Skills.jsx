@@ -115,7 +115,7 @@ export default function Skills() {
   }, [])
 
   return (
-    <div ref={sectionRef}>
+    <div ref={sectionRef} id="skills">
       <div 
         ref={pinRef} 
         className="skills-pin-container" 

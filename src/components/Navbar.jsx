@@ -107,12 +107,9 @@ export default function Navbar() {
               overflow: 'hidden'
             }}
           >
-            {links.map((l, index) => (
-              <motion.button
+            {links.map((l) => (
+              <button
                 key={l}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.04 }}
                 onClick={() => scrollTo(l)}
                 style={{
                   background: 'none',
@@ -133,13 +130,10 @@ export default function Navbar() {
                 onMouseLeave={e => e.target.style.color = '#7a9ab5'}
               >
                 {l}
-              </motion.button>
+              </button>
             ))}
             
-            <motion.button
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.25 }}
+            <button
               onClick={() => scrollTo('Contact')}
               className="btn-primary"
               style={{
@@ -151,7 +145,7 @@ export default function Navbar() {
               }}
             >
               Hire Me
-            </motion.button>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
