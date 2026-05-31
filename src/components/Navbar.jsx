@@ -14,7 +14,14 @@ export default function Navbar() {
   }, [])
 
   const scrollTo = id => {
-    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })
+    const target = document.getElementById(id.toLowerCase())
+    if (target) {
+      if (window.lenis) {
+        window.lenis.scrollTo(target, { duration: 1.2 })
+      } else {
+        target.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
     setMenuOpen(false)
   }
 
@@ -111,6 +118,10 @@ export default function Navbar() {
               <button
                 key={l}
                 onClick={() => scrollTo(l)}
+                onTouchEnd={(e) => {
+                  e.preventDefault()
+                  scrollTo(l)
+                }}
                 style={{
                   background: 'none',
                   border: 'none',
@@ -135,6 +146,10 @@ export default function Navbar() {
             
             <button
               onClick={() => scrollTo('Contact')}
+              onTouchEnd={(e) => {
+                e.preventDefault()
+                scrollTo('Contact')
+              }}
               className="btn-primary"
               style={{
                 padding: '0.75rem 2.5rem',

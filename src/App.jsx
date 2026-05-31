@@ -36,8 +36,11 @@ export default function App() {
 
     gsap.ticker.lagSmoothing(0)
 
+    window.lenis = lenis
+
     return () => {
       lenis.destroy()
+      window.lenis = null
       gsap.ticker.remove(lenis.raf)
     }
   }, [])
