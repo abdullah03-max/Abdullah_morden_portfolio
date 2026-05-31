@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
 const skills = [
@@ -79,6 +79,16 @@ export default function Skills() {
   const sectionRef = useRef(null)
   const pinRef = useRef(null)
   const trackRef = useRef(null)
+  const [isDesktop, setIsDesktop] = useState(true)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 900)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -106,7 +116,23 @@ export default function Skills() {
 
   return (
     <div ref={sectionRef}>
-      <div ref={pinRef} className="skills-pin-container" style={{ position: 'relative', background: '#04020f' }}>
+      <div 
+        ref={pinRef} 
+        className="skills-pin-container" 
+        style={isDesktop ? {
+          height: '100vh', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'center', 
+          overflow: 'hidden', 
+          position: 'relative',
+          background: '#04020f',
+          paddingTop: '5rem'
+        } : {
+          position: 'relative', 
+          background: '#04020f'
+        }}
+      >
         {/* Decorative parallax glowing orb */}
         <div style={{
           position: 'absolute', top: '10%', left: '-10%',
@@ -124,6 +150,14 @@ export default function Skills() {
         <div 
           ref={trackRef} 
           className="skills-track"
+          style={isDesktop ? {
+            display: 'flex', 
+            gap: '2rem', 
+            padding: '0.5rem 4vw 2rem 4vw',
+            width: 'max-content',
+            position: 'relative',
+            zIndex: 3
+          } : {}}
         >
           {skills.map((skill, i) => <SkillCard key={skill.name} skill={skill} index={i} />)}
         </div>

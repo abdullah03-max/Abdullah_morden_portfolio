@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { useReveal } from '../hooks/useReveal'
 
@@ -51,6 +51,16 @@ export default function Projects() {
   const sectionRef = useRef(null)
   const pinRef = useRef(null)
   const trackRef = useRef(null)
+  const [isDesktop, setIsDesktop] = useState(true)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 900)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -98,7 +108,23 @@ export default function Projects() {
 
   return (
     <div ref={sectionRef} id="projects">
-      <div ref={pinRef} className="projects-pin-container" style={{ background: '#04020f', position: 'relative' }}>
+      <div 
+        ref={pinRef} 
+        className="projects-pin-container" 
+        style={isDesktop ? {
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          background: '#04020f',
+          position: 'relative',
+          overflow: 'hidden',
+          paddingTop: '5rem'
+        } : {
+          background: '#04020f', 
+          position: 'relative'
+        }}
+      >
         {/* Glow highlight */}
         <div style={{
           position: 'absolute', bottom: '-20%', right: '-10%',
@@ -124,6 +150,15 @@ export default function Projects() {
         <div 
           ref={trackRef}
           className="projects-track"
+          style={isDesktop ? {
+            display: 'flex',
+            gap: '2.5rem',
+            padding: '1rem 4vw 2rem 4vw',
+            width: 'max-content',
+            zIndex: 2,
+            position: 'relative',
+            perspective: '1500px'
+          } : {}}
         >
           {projects.map((p) => (
             <div 
